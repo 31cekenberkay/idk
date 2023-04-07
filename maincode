@@ -1,0 +1,37 @@
+local Input = game:GetService('UserInputService');
+local Players = game:GetService('Players')
+local Player = Players['LocalPlayer'];
+local Key = 'U'
+
+_G.Magnitude = 12
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/31cekenberkay/idk/main/acbypass", true))
+
+Input.InputBegan:connect(function(key, ui)
+    if not ui then
+    if key.KeyCode == Enum.KeyCode[Key] then
+    for i,v in pairs(game.Workspace:GetDescendants()) do
+for _,a in pairs(v:GetChildren()) do
+    if a.ClassName == "BodyGyro" then
+    local Char = Player.Character
+    local HRP = Char and Char:FindFirstChild('HitBox')
+    local Ball = HRP and a.Parent
+    local Mag = Ball and (function(p, p1)
+      return ((p.Position - p1.Position).magnitude)
+    end)
+
+    if Mag then
+      local pos = Mag(HRP, Ball)
+      repeat wait()
+        pos = Mag(HRP, Ball)
+      until (not Input:IsKeyDown(Enum.KeyCode[Key])) or (pos <= 150)
+      if (Ball.Position - game.Players.LocalPlayer.Character.HitBox.Position).magnitude <= _G.Magnitude then
+      Ball.CFrame = HRP.CFrame
+    end
+      end
+end
+end
+end
+end
+end
+end)
