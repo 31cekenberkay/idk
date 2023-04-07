@@ -1,0 +1,23 @@
+local mt = getrawmetatable(game)
+local old = mt.__namecall
+setreadonly(mt, false)
+mt.__namecall = newcclosure(function(self, ...)
+if getnamecallmethod() == "Kick" or getnamecallmethod() == "kick" then
+return wait(math.huge)
+end
+return old(self, ...)
+end)
+setreadonly(mt, true)
+game:GetService("ScriptContext"):SetTimeout(0.1)
+for i,v in pairs(getconnections(game.Players.LocalPlayer.Character.Humanoid.Changed)) do
+v:Disable()
+end
+for i,v in pairs(getconnections(game.Players.LocalPlayer.Character.Humanoid.Running)) do
+v:Disable()
+end
+for i,v in pairs(getconnections(game.Players.LocalPlayer.Character.HumanoidRootPart.Changed)) do
+v:Disable()
+end
+for i,v in pairs(getconncections(game.Players.LocalPlayer.Character.DescendantAdded)) do
+v:Disable()
+end
